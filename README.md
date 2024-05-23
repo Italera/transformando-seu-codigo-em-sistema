@@ -1,6 +1,4 @@
 # transformando-seu-codigo-em-sistema
- 
-# Filtragem
 
 # Filtragem de Exportações para França
 ## Descrição do Projeto
@@ -53,8 +51,8 @@ O arquivo CSV original e o filtrado possuem a seguinte estrutura:
 - Economic Block: Bloco econômico de destino
 - US$ FOB: Valor da exportação em dólares
 - Net Weight: Peso líquido da exportação
-- 
-#Observações
+  
+# Observações
 
 - Certifique-se de que o arquivo exportacoes_franca.csv esteja no mesmo diretório dos scripts antes de executá-los.
 - A filtragem pode ser ajustada conforme necessário, alterando os critérios nos scripts de filtragem.
