@@ -19,21 +19,24 @@ Este passo importa a biblioteca Pandas e carrega o arquivo CSV original.
 
 import pandas as pd
 
-# Carregar o arquivo CSV
+Carregar o arquivo CSV
 tabela = pd.read_csv("exportacoes_franca.csv")
 display(tabela)
+
 2. Filtragem de Dados
 Neste passo, aplicamos filtros para selecionar apenas os dados de exportações para a França a partir de 2016.
 
 # Filtrar dados a partir de 2016 e para o país França
 tabela = tabela.loc[tabela['Year'] >= 2016, :]
+
 tabela = tabela.loc[tabela['Country'] == "France", :]
+
 display(tabela)
 
 3. Exportação de Dados Filtrados
 Após a filtragem, os dados são exportados para um novo arquivo CSV.
 
-# Salvar os dados filtrados em um novo arquivo CSV
+Salvar os dados filtrados em um novo arquivo CSV
 tabela.to_csv("exportacoes_filtradas_franca.csv", index=False)
 display(tabela)
 
