@@ -62,3 +62,78 @@ O arquivo CSV original e o filtrado possuem a seguinte estrutura:
 
 # Conclusão
 - Este projeto fornece um sistema automatizado para a filtragem de dados de exportações, facilitando a análise e o tratamento dos dados de maneira eficiente.
+
+# Análise de Exportações para a França (2016-2020)
+
+Este README fornece uma visão geral do processo de análise das exportações brasileiras para a França entre 2016 e 2020. O objetivo é analisar e apresentar informações sobre a evolução das exportações, os produtos mais exportados e as cidades com maior volume de exportação. Este documento descreve as etapas necessárias para realizar essa análise usando Python e a biblioteca pandas.
+
+Requisitos
+
+Python 3.x
+pandas
+Passos para a Análise
+
+1. Importar Bibliotecas Necessárias
+
+import pandas as pd
+
+3. Carregar e Filtrar a Base de Dados
+Carregue a base de dados de exportações e filtre os registros para incluir apenas exportações para a Europa.
+
+tabela = pd.read_csv("exportacoes_franca.csv")
+tabela = tabela.loc[tabela['Economic Block']=='Europe', :]
+
+3. Exibir a Tabela Filtrada
+Visualize os dados filtrados para assegurar que a filtragem foi realizada corretamente.
+
+display(tabela)
+
+4. Informações Gerais sobre os Dados
+Obtenha informações gerais e estatísticas descritivas sobre a tabela.
+
+print(tabela.info())
+display(tabela.describe())
+
+5. Evolução das Exportações (US$) ao Longo dos Anos
+Agrupe os dados por ano e calcule a soma das exportações (US$ FOB) para cada ano.
+
+exportacao_ano = tabela.groupby('Year').sum()[['US$ FOB']]
+
+def formatar(valor):
+    return f'${valor:,.2f}'
+
+exportacao_ano['US$ FOB'] = exportacao_ano['US$ FOB'].map(formatar)
+display(exportacao_ano)
+
+6. Produtos Mais Exportados (US$) ao Longo de Todo o Período
+Agrupe os dados pela descrição dos produtos (SH4 Description) e calcule a soma das exportações (US$ FOB) para cada produto.
+
+exportacao_produto = tabela.groupby('SH4 Description').sum()[['US$ FOB']]
+exportacao_produto = exportacao_produto.sort_values('US$ FOB', ascending=False)
+exportacao_produto['US$ FOB'] = exportacao_produto['US$ FOB'].map(formatar)
+display(exportacao_produto)
+
+7. Cidade com Maior Volume de Exportações para a França em 2020
+Filtre os dados para o ano de 2020, agrupe por cidade e calcule a soma das exportações (US$ FOB).
+
+tabela_2020 = tabela.loc[tabela['Year']==2020, :]
+exportacao_cidades_2020 = tabela_2020.groupby('City').sum()[['US$ FOB']]
+exportacao_cidades_2020 = exportacao_cidades_2020.sort_values('US$ FOB', ascending=False)
+exportacao_cidades_2020['US$ FOB'] = exportacao_cidades_2020['US$ FOB'].map(formatar)
+display(exportacao_cidades_2020)
+
+8. Análise dos Produtos Exportados pela Maior Cidade em 2020
+Selecione a cidade com maior volume de exportações e analise os produtos exportados por essa cidade.
+
+cidade = exportacao_cidades_2020.index[0]
+tabela_cidade = tabela_2020.loc[tabela_2020['City']==cidade, :]
+tabela_cidade = tabela_cidade.groupby('SH4 Description').sum()[['US$ FOB']]
+tabela_cidade = tabela_cidade.sort_values('US$ FOB', ascending=False)
+tabela_cidade['US$ FOB'] = tabela_cidade['US$ FOB'].map(formatar)
+display(tabela_cidade)
+
+# Conclusão
+Este processo permite uma análise detalhada das exportações brasileiras para a França, incluindo a identificação das tendências ao longo dos anos, os principais produtos exportados e as cidades com maior volume de exportações. A formatação dos valores facilita a interpretação dos dados financeiros, tornando a análise mais intuitiva e compreensível.
+
+# Autor
+Este script foi desenvolvido para fins de análise de dados e pode ser ajustado conforme necessário para outras análises ou períodos. Para quaisquer dúvidas ou melhorias, sinta-se à vontade para contribuir.
